@@ -37,12 +37,14 @@ if __name__ == "__main__":
         train_writer = tf.train.SummaryWriter('train/',
                                       sess.graph)
 
-        with tf.Session() as sess:
-            sess.run(tf.initialize_all_variables())
-            for i in range(100000):
-                indices = np.random.choice(nsamples,nbatch)
-                X_batch,y_batch = X_data[indices],Y_data[indices]
-                # Do gradient descent
-                _,loss_val,summary = sess.run([opt,loss,merged],\
-                        feed_dict = {X:X_batch,y:y_batch})
-                train_writer.add_summary(summary,i)
+        sess.run(tf.initialize_all_variables())
+        print "Initial slope: ",W[0,0].eval(), " and bias: ",b[0].eval()
+        print "Training, this might take a while ..."
+        for i in range(30000):
+            indices = np.random.choice(nsamples,nbatch)
+            X_batch,y_batch = X_data[indices],Y_data[indices]
+            # Do gradient descent
+            _,loss_val,summary = sess.run([opt,loss,merged],\
+                    feed_dict = {X:X_batch,y:y_batch})
+            train_writer.add_summary(summary,i)
+        print "Resulting slope: ",W[0,0].eval(), " and bias: ",b[0].eval()

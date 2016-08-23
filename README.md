@@ -1,4 +1,4 @@
-# tflow_experiments
+# Tensor Flow Experiments
 My experiments with tensor flow
 
 # Linear Regression
